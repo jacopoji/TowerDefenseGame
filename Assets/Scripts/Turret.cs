@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour
     private LineRenderer laserClone;
     private ParticleSystem laserImpactEffectClone;
     public float range = 18f;
+    public float selfValue;
     [Header("Use Bullet(default)")]
     public GameObject bulletPrefab;
     public float aimSpeed = 10f;
@@ -24,6 +25,7 @@ public class Turret : MonoBehaviour
     [Header("Setup")]
     public Transform partToRotate;
     public Transform shootPoint;
+    public float depreciation = 0.6f;
 
     private MobStats enemy;
     // Start is called before the first frame update
@@ -147,5 +149,11 @@ public class Turret : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    public void UpdateSelfValue(int amount)
+    {
+        selfValue += amount * depreciation;
+        //Debug.Log("Self Value updated to " + selfValue);
     }
 }

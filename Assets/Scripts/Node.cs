@@ -50,15 +50,17 @@ public class Node : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        if (!buildManager.canBuild)
-            return;
+        //if (!buildManager.canBuild)
+        //    return;
         if(turret == null)
         {
             //build turret
             turret = buildManager.BuildTurret(this);
+            
         }
         else
         {
+            buildManager.SetTurretSelected(turret);
             Debug.Log("Cannot build turret TODO: display on game scene");
         }
     }
