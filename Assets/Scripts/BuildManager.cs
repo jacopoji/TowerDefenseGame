@@ -44,9 +44,17 @@ public class BuildManager : MonoBehaviour
 
     public void SetTurretSelected(GameObject _turretSelected)
     {
+        
+        if (_turretSelected == turretSelected)
+        {
+            nodeUI.ToggleUI(!nodeUI.NodeUICanvas.gameObject.activeSelf);
+        }
+        else
+        {
+            nodeUI.MoveUI(_turretSelected.transform);
+            nodeUI.UpdateSellText(_turretSelected.GetComponent<Turret>().selfValue);
+        }
         turretSelected = _turretSelected;
-        nodeUI.MoveUI(_turretSelected.transform);
-        nodeUI.UpdateSellText(_turretSelected.GetComponent<Turret>().selfValue);
         turretToBuild = null;
     }
 
@@ -70,8 +78,7 @@ public class BuildManager : MonoBehaviour
         Turret turret = turretSelected.GetComponent<Turret>();
         AddGold(Mathf.FloorToInt(turret.selfValue));
         Destroy(turretSelected);
-        nodeUI.DisableUI();
-
+        nodeUI.ToggleUI(false);
     }
 
 
@@ -79,7 +86,7 @@ public class BuildManager : MonoBehaviour
     public GameObject BuildTurret(Node targetNode)
     {
 
-        nodeUI.DisableUI();
+        nodeUI.ToggleUI(false);
         if (turretToBuild == null)
             return null;
         if (gold < turretToBuild.cost)

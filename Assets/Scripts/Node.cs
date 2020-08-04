@@ -29,8 +29,7 @@ public class Node : MonoBehaviour
             return;
         if (buildManager.hasMoney)
         {
-
-        rend.material.color = hoverColor;
+            rend.material.color = hoverColor;
         }
         else
         {
@@ -44,7 +43,7 @@ public class Node : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        rend.material.color = startColor;
+        ResetNodeColor();
     }
     private void OnMouseDown()
     {
@@ -56,12 +55,19 @@ public class Node : MonoBehaviour
         {
             //build turret
             turret = buildManager.BuildTurret(this);
-            
+            if(turret != null)
+            {
+                ResetNodeColor();
+            }
         }
         else
         {
             buildManager.SetTurretSelected(turret);
-            Debug.Log("Cannot build turret TODO: display on game scene");
+            ResetNodeColor();
         }
+    }
+    private void ResetNodeColor()
+    {
+        rend.material.color = startColor;
     }
 }
