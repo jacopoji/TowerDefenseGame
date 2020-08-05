@@ -12,6 +12,7 @@ public class NodeUI : MonoBehaviour
     public Canvas NodeUICanvas;
     public Text UpgradeText;
     public Text SellText;
+    public Text LevelText;
     private void Start()
     {
         buildManager = BuildManager.instance;
@@ -37,9 +38,9 @@ public class NodeUI : MonoBehaviour
         //Debug.Log("Disabling the UI");
     }
 
-    public void UpdateUpgradeText()
+    public void UpdateUpgradeText(float value)
     {
-
+        UpgradeText.text = "<b>UPGRADE</b> \n$" + Mathf.FloorToInt(value);
     }
 
     public void UpdateSellText(float value)
@@ -47,9 +48,19 @@ public class NodeUI : MonoBehaviour
         SellText.text = "<b>Sell</b> \n$" + Mathf.FloorToInt(value);
     }
 
+    public void UpdateLevelText(int value)
+    {
+        LevelText.text = "Level " + value;
+    }
+
     public void OnSellTurret()
     {
         buildManager.SellTurret();
+    }
+
+    public void OnUpgradeTurret()
+    {
+        buildManager.UpgradeTurret();
     }
     
 }

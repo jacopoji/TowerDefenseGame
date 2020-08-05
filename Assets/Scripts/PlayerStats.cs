@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static int gold;
+    public static float gold;
     public int startingGold = 500;
 
     public static int lives;

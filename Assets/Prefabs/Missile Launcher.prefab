@@ -159,12 +159,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   range: 30
-  aimSpeed: 8
-  fireRate: 0.5
-  partToRotate: {fileID: 4954653686090804497}
+  baseUpgradeCost: 0
+  depreciation: 0.6
   bulletPrefab: {fileID: 5677547764020504399, guid: 3c6b4d43d3eec064082810abd355c1e9,
     type: 3}
+  aimSpeed: 8
+  fireRate: 0.5
+  useLaser: 0
+  laser: {fileID: 0}
+  LaserImpactEffect: {fileID: 0}
+  damageOverTime: 0
+  slowPercentage: 0.5
+  partToRotate: {fileID: 4954653686090804497}
   shootPoint: {fileID: 770950882446737018}
+  nodeUI: {fileID: 0}
 --- !u!1 &7952627117826723269
 GameObject:
   m_ObjectHideFlags: 0

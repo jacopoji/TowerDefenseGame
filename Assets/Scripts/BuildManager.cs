@@ -13,7 +13,7 @@ public class BuildManager : MonoBehaviour
     public GameObject turretSelected;
     public NodeUI nodeUI;
 
-    public int gold;
+    public float gold;
     public Text goldText;
 
     public Vector3 buildOffset;
@@ -51,16 +51,25 @@ public class BuildManager : MonoBehaviour
         }
         else
         {
+            Turret turret = _turretSelected.GetComponent<Turret>();
             nodeUI.MoveUI(_turretSelected.transform);
-            nodeUI.UpdateSellText(_turretSelected.GetComponent<Turret>().selfValue);
+            nodeUI.UpdateSellText(turret.GetSelfValue());
+            nodeUI.UpdateUpgradeText(turret.GetUpgradeCost());
+            nodeUI.UpdateLevelText(turret.GetUpgradeCount()+1);
         }
         turretSelected = _turretSelected;
         turretToBuild = null;
     }
 
-    public void AddGold(int amount)
+    public void AddGold(float amount)
     {
         gold += amount;
+        UpdateGoldUI();
+    }
+
+    public void DeductGold(float amount)
+    {
+        gold -= amount;
         UpdateGoldUI();
     }
     
@@ -76,11 +85,32 @@ public class BuildManager : MonoBehaviour
         if (turretSelected == null)
             return;
         Turret turret = turretSelected.GetComponent<Turret>();
-        AddGold(Mathf.FloorToInt(turret.selfValue));
+        AddGold(Mathf.FloorToInt(turret.GetSelfValue()));
         Destroy(turretSelected);
         nodeUI.ToggleUI(false);
     }
 
+    public void UpgradeTurret()
+    {
+        if (turretSelected == null)
+            return;
+        Turret turret = turretSelected.GetComponent<Turret>();
+        if (gold < turret.GetUpgradeCost())
+        {
+            Debug.Log("Not enough gold to upgrade!");
+            return;
+
+        }
+        DeductGold(turret.GetUpgradeCost());
+        turret.Upgrade();
+        GameObject effect = Instantiate(buildTurretEffect, turretSelected.transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+        nodeUI.UpdateUpgradeText(turret.GetUpgradeCost());
+        nodeUI.UpdateSellText(turret.GetSelfValue());
+        nodeUI.UpdateLevelText(turret.GetUpgradeCount()+1);
+
+
+    }
 
 
     public GameObject BuildTurret(Node targetNode)
@@ -101,6 +131,7 @@ public class BuildManager : MonoBehaviour
         GameObject turret = (GameObject)Instantiate(turretToBuild.turretPrefab, targetNode.GetBuildPosition(), targetNode.transform.rotation);
         Turret temp = turret.GetComponent<Turret>();
         temp.UpdateSelfValue(turretToBuild.cost);
+        temp.SetBaseUpgradeCost(turretToBuild.cost * 0.6f);
         return turret;
     }
     

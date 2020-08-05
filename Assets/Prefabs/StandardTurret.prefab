@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4145031589020606284}
   - component: {fileID: 3660807370216883703}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: StandardTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,12 +47,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   range: 18
-  aimSpeed: 10
-  fireRate: 1
-  partToRotate: {fileID: 4791329992418548838}
+  baseUpgradeCost: 0
+  depreciation: 0.6
   bulletPrefab: {fileID: 137837292920927278, guid: 321067805feaee64ab03dd0a81dee6a0,
     type: 3}
+  aimSpeed: 10
+  fireRate: 1
+  useLaser: 0
+  laser: {fileID: 0}
+  LaserImpactEffect: {fileID: 0}
+  damageOverTime: 0
+  slowPercentage: 0.5
+  partToRotate: {fileID: 4791329992418548838}
   shootPoint: {fileID: 6826921238865809550}
+  nodeUI: {fileID: 0}
 --- !u!1 &3690771573928844001
 GameObject:
   m_ObjectHideFlags: 0

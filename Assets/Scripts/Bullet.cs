@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float speed = 50f;
     public GameObject bulletImpactEffect;
     public int bulletDamage = 50;
+    private float damageAmplifier = 1;
     public float explosionRadius;
     public void SetTarget(Transform _target)
     {
@@ -68,7 +69,12 @@ public class Bullet : MonoBehaviour
     {
         MobStats mob = enemy.GetComponent<MobStats>();
         if (mob != null)
-            mob.TakeDamage(bulletDamage);
+            mob.TakeDamage(bulletDamage * damageAmplifier);
+    }
+
+    public void SetDamageAmplifier(float value)
+    {
+        damageAmplifier = value;
     }
 
     private void OnDrawGizmosSelected()

@@ -9,7 +9,16 @@ public class Turret : MonoBehaviour
     private LineRenderer laserClone;
     private ParticleSystem laserImpactEffectClone;
     public float range = 18f;
-    public float selfValue;
+
+    [Header("Turret Level")]
+    public float baseUpgradeCost;
+    private int upgradeCount;
+    private float upgradeCost;
+    private float upgradeCostCoefficient = 0.3f;
+    
+
+    private float selfValue;
+    public float depreciation = 0.6f;
     [Header("Use Bullet(default)")]
     public GameObject bulletPrefab;
     public float aimSpeed = 10f;
@@ -25,7 +34,6 @@ public class Turret : MonoBehaviour
     [Header("Setup")]
     public Transform partToRotate;
     public Transform shootPoint;
-    public float depreciation = 0.6f;
 
     private MobStats enemy;
     // Start is called before the first frame update
@@ -89,8 +97,6 @@ public class Turret : MonoBehaviour
                 Shoot();
                 shootCountdown = 1 / fireRate;
             }
-
-
             shootCountdown -= Time.deltaTime;
         }
         
@@ -151,9 +157,67 @@ public class Turret : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
-    public void UpdateSelfValue(int amount)
+    
+
+    public void SetBaseUpgradeCost(float cost)
+    {
+        baseUpgradeCost = cost;
+        upgradeCost = baseUpgradeCost;
+    }
+
+    public void Upgrade()
+    {
+        UpdateUpgradeCount();
+        UpdateSelfValue(GetUpgradeCost());
+        if (!useLaser)
+        {
+            range += 0.2f;
+            fireRate += 0.05f;
+            Bullet bullet = bulletPrefab.GetComponent<Bullet>();
+            bullet.SetDamageAmplifier(1f + 0.4f * upgradeCount);
+        }
+        else
+        {
+            range += 0.2f;
+            damageOverTime *= 0.4f;
+        }
+    }
+
+    //Update
+    private void UpdateUpgradeCount()
+    {
+        upgradeCount++;
+        UpdateUpgradeCost();
+    }
+
+    private void UpdateUpgradeCost()
+    {
+        upgradeCost += upgradeCost * upgradeCostCoefficient;
+        upgradeCost = Mathf.Floor(upgradeCost);
+    }
+
+    public void UpdateSelfValue(float amount)
     {
         selfValue += amount * depreciation;
-        //Debug.Log("Self Value updated to " + selfValue);
+        selfValue = Mathf.Floor(selfValue);
     }
+
+
+
+    //Get
+    public int GetUpgradeCount()
+    {
+        return upgradeCount;
+    }
+
+    public float GetUpgradeCost()
+    {
+        return upgradeCost;
+    }
+
+    public float GetSelfValue()
+    {
+        return selfValue;
+    }
+
 }
