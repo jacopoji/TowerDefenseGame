@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
             transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
         }
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.CapsLock))
         {
             disablePan = !disablePan;
         }

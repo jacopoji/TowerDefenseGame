@@ -55,10 +55,12 @@ public class GameMaster : MonoBehaviour
     public void OnRetry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
 
     public void OnMenu()
     {
-        Debug.Log("Menu");
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
 }
