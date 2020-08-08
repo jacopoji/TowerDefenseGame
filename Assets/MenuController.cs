@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    public FadeEffect fadeEffect;
 
     public void OnPlay()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        fadeEffect.PlayFadeOut(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void OnExit()
     {

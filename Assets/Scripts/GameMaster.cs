@@ -7,6 +7,7 @@ public class GameMaster : MonoBehaviour
     public static GameMaster instance;
     public GameObject GameOverUI;
     public bool isGameOver;
+    public FadeEffect fadeEffect;
 
     public int survivedRounds;
     public Text rounds;
@@ -54,13 +55,14 @@ public class GameMaster : MonoBehaviour
 
     public void OnRetry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        fadeEffect.PlayFadeOut(SceneManager.GetActiveScene().buildIndex);
+        
         Time.timeScale = 1f;
     }
 
     public void OnMenu()
     {
-        SceneManager.LoadScene(0);
+        fadeEffect.PlayFadeOut(0);
         Time.timeScale = 1f;
     }
 }
