@@ -9372,6 +9372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverUI: {fileID: 985692274}
   isGameOver: 0
+  fadeEffect: {fileID: 2111610251}
   survivedRounds: 0
   rounds: {fileID: 1195151182}
 --- !u!114 &365336224
@@ -12520,7 +12521,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 8.3e-44, z: 1.7e-44, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -27331,6 +27332,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2070829697}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2111610251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7749597912825205269, guid: d29f3df33c37a674696ee2d8238c4ab8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1538318936}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4470696bd6453e44893a55a529de9d6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2119117761
 GameObject:
   m_ObjectHideFlags: 0
